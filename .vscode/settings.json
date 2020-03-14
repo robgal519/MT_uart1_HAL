@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "driver_usart.h": "c",
+        "main.h": "c"
+    }
+}

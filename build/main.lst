@@ -1,0 +1,618 @@
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.initUSART,"ax",%progbits
+  18              		.align	1
+  19              		.global	initUSART
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	initUSART:
+  27              	.LFB130:
+  28              		.file 1 "Src/main.c"
+   1:Src/main.c    **** /* USER CODE BEGIN Header */
+   2:Src/main.c    **** /**
+   3:Src/main.c    ****   ******************************************************************************
+   4:Src/main.c    ****   * @file           : main.c
+   5:Src/main.c    ****   * @brief          : Main program body
+   6:Src/main.c    ****   ******************************************************************************
+   7:Src/main.c    ****   * @attention
+   8:Src/main.c    ****   *
+   9:Src/main.c    ****   * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
+  10:Src/main.c    ****   * All rights reserved.</center></h2>
+  11:Src/main.c    ****   *
+  12:Src/main.c    ****   * This software component is licensed by ST under BSD 3-Clause license,
+  13:Src/main.c    ****   * the "License"; You may not use this file except in compliance with the
+  14:Src/main.c    ****   * License. You may obtain a copy of the License at:
+  15:Src/main.c    ****   *                        opensource.org/licenses/BSD-3-Clause
+  16:Src/main.c    ****   *
+  17:Src/main.c    ****   ******************************************************************************
+  18:Src/main.c    ****   */
+  19:Src/main.c    **** /* USER CODE END Header */
+  20:Src/main.c    **** 
+  21:Src/main.c    **** /* Includes ------------------------------------------------------------------*/
+  22:Src/main.c    **** #include "main.h"
+  23:Src/main.c    **** 
+  24:Src/main.c    **** /* Private includes ----------------------------------------------------------*/
+  25:Src/main.c    **** /* USER CODE BEGIN Includes */
+  26:Src/main.c    **** #include "Driver_USART.h"
+  27:Src/main.c    **** /* USER CODE END Includes */
+  28:Src/main.c    **** 
+  29:Src/main.c    **** /* Private typedef -----------------------------------------------------------*/
+  30:Src/main.c    **** /* USER CODE BEGIN PTD */
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s 			page 2
+
+
+  31:Src/main.c    **** 
+  32:Src/main.c    **** /* USER CODE END PTD */
+  33:Src/main.c    **** 
+  34:Src/main.c    **** /* Private define ------------------------------------------------------------*/
+  35:Src/main.c    **** /* USER CODE BEGIN PD */
+  36:Src/main.c    **** /* USER CODE END PD */
+  37:Src/main.c    **** 
+  38:Src/main.c    **** /* Private macro -------------------------------------------------------------*/
+  39:Src/main.c    **** /* USER CODE BEGIN PM */
+  40:Src/main.c    **** 
+  41:Src/main.c    **** /* USER CODE END PM */
+  42:Src/main.c    **** 
+  43:Src/main.c    **** /* Private variables ---------------------------------------------------------*/
+  44:Src/main.c    **** 
+  45:Src/main.c    **** /* USER CODE BEGIN PV */
+  46:Src/main.c    **** extern ARM_DRIVER_USART Driver_USART1;
+  47:Src/main.c    **** 
+  48:Src/main.c    **** /* USER CODE END PV */
+  49:Src/main.c    **** 
+  50:Src/main.c    **** /* Private function prototypes -----------------------------------------------*/
+  51:Src/main.c    **** void SystemClock_Config(void);
+  52:Src/main.c    **** /* USER CODE BEGIN PFP */
+  53:Src/main.c    **** 
+  54:Src/main.c    **** /* USER CODE END PFP */
+  55:Src/main.c    **** 
+  56:Src/main.c    **** /* Private user code ---------------------------------------------------------*/
+  57:Src/main.c    **** /* USER CODE BEGIN 0 */
+  58:Src/main.c    **** void initUSART(ARM_USART_SignalEvent_t f, unsigned int baudrate, ARM_DRIVER_USART *uart)
+  59:Src/main.c    **** {
+  29              		.loc 1 59 1
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 16
+  32              		@ frame_needed = 1, uses_anonymous_args = 0
+  33 0000 80B5     		push	{r7, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 7, -8
+  37              		.cfi_offset 14, -4
+  38 0002 84B0     		sub	sp, sp, #16
+  39              	.LCFI1:
+  40              		.cfi_def_cfa_offset 24
+  41 0004 00AF     		add	r7, sp, #0
+  42              	.LCFI2:
+  43              		.cfi_def_cfa_register 7
+  44 0006 F860     		str	r0, [r7, #12]
+  45 0008 B960     		str	r1, [r7, #8]
+  46 000a 7A60     		str	r2, [r7, #4]
+  60:Src/main.c    **** 	uart->Initialize(f);
+  47              		.loc 1 60 6
+  48 000c 7B68     		ldr	r3, [r7, #4]
+  49 000e 9B68     		ldr	r3, [r3, #8]
+  50              		.loc 1 60 2
+  51 0010 F868     		ldr	r0, [r7, #12]
+  52 0012 9847     		blx	r3
+  53              	.LVL0:
+  61:Src/main.c    **** 	uart->PowerControl(ARM_POWER_FULL);
+  54              		.loc 1 61 6
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s 			page 3
+
+
+  55 0014 7B68     		ldr	r3, [r7, #4]
+  56 0016 1B69     		ldr	r3, [r3, #16]
+  57              		.loc 1 61 2
+  58 0018 0220     		movs	r0, #2
+  59 001a 9847     		blx	r3
+  60              	.LVL1:
+  62:Src/main.c    **** 	uart->Control(ARM_USART_MODE_ASYNCHRONOUS |
+  61              		.loc 1 62 6
+  62 001c 7B68     		ldr	r3, [r7, #4]
+  63 001e 9B6A     		ldr	r3, [r3, #40]
+  64              		.loc 1 62 2
+  65 0020 B968     		ldr	r1, [r7, #8]
+  66 0022 0120     		movs	r0, #1
+  67 0024 9847     		blx	r3
+  68              	.LVL2:
+  63:Src/main.c    **** 					  ARM_USART_DATA_BITS_8 |
+  64:Src/main.c    **** 					  ARM_USART_PARITY_NONE |
+  65:Src/main.c    **** 					  ARM_USART_STOP_BITS_1 |
+  66:Src/main.c    **** 					  ARM_USART_FLOW_CONTROL_NONE,
+  67:Src/main.c    **** 				  baudrate);
+  68:Src/main.c    **** 	uart->Control(ARM_USART_CONTROL_TX, 1);
+  69              		.loc 1 68 6
+  70 0026 7B68     		ldr	r3, [r7, #4]
+  71 0028 9B6A     		ldr	r3, [r3, #40]
+  72              		.loc 1 68 2
+  73 002a 0121     		movs	r1, #1
+  74 002c 1520     		movs	r0, #21
+  75 002e 9847     		blx	r3
+  76              	.LVL3:
+  69:Src/main.c    **** 	uart->Control(ARM_USART_CONTROL_RX, 1);
+  77              		.loc 1 69 6
+  78 0030 7B68     		ldr	r3, [r7, #4]
+  79 0032 9B6A     		ldr	r3, [r3, #40]
+  80              		.loc 1 69 2
+  81 0034 0121     		movs	r1, #1
+  82 0036 1620     		movs	r0, #22
+  83 0038 9847     		blx	r3
+  84              	.LVL4:
+  70:Src/main.c    **** }
+  85              		.loc 1 70 1
+  86 003a 00BF     		nop
+  87 003c 1037     		adds	r7, r7, #16
+  88              	.LCFI3:
+  89              		.cfi_def_cfa_offset 8
+  90 003e BD46     		mov	sp, r7
+  91              	.LCFI4:
+  92              		.cfi_def_cfa_register 13
+  93              		@ sp needed
+  94 0040 80BD     		pop	{r7, pc}
+  95              		.cfi_endproc
+  96              	.LFE130:
+  98              		.section	.rodata
+  99              		.align	2
+ 100              	.LC0:
+ 101 0000 48656C6C 		.ascii	"Hello World! I'm working!\000"
+ 101      6F20576F 
+ 101      726C6421 
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s 			page 4
+
+
+ 101      2049276D 
+ 101      20776F72 
+ 102              		.section	.text.main,"ax",%progbits
+ 103              		.align	1
+ 104              		.global	main
+ 105              		.syntax unified
+ 106              		.thumb
+ 107              		.thumb_func
+ 108              		.fpu fpv4-sp-d16
+ 110              	main:
+ 111              	.LFB131:
+  71:Src/main.c    **** /* USER CODE END 0 */
+  72:Src/main.c    **** 
+  73:Src/main.c    **** /**
+  74:Src/main.c    ****   * @brief  The application entry point.
+  75:Src/main.c    ****   * @retval int
+  76:Src/main.c    ****   */
+  77:Src/main.c    **** int main(void)
+  78:Src/main.c    **** {
+ 112              		.loc 1 78 1
+ 113              		.cfi_startproc
+ 114              		@ args = 0, pretend = 0, frame = 32
+ 115              		@ frame_needed = 1, uses_anonymous_args = 0
+ 116 0000 B0B5     		push	{r4, r5, r7, lr}
+ 117              	.LCFI5:
+ 118              		.cfi_def_cfa_offset 16
+ 119              		.cfi_offset 4, -16
+ 120              		.cfi_offset 5, -12
+ 121              		.cfi_offset 7, -8
+ 122              		.cfi_offset 14, -4
+ 123 0002 88B0     		sub	sp, sp, #32
+ 124              	.LCFI6:
+ 125              		.cfi_def_cfa_offset 48
+ 126 0004 00AF     		add	r7, sp, #0
+ 127              	.LCFI7:
+ 128              		.cfi_def_cfa_register 7
+  79:Src/main.c    ****   /* USER CODE BEGIN 1 */
+  80:Src/main.c    **** 
+  81:Src/main.c    ****   /* USER CODE END 1 */
+  82:Src/main.c    **** 
+  83:Src/main.c    ****   /* MCU Configuration--------------------------------------------------------*/
+  84:Src/main.c    **** 
+  85:Src/main.c    ****   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  86:Src/main.c    ****   HAL_Init();
+ 129              		.loc 1 86 3
+ 130 0006 FFF7FEFF 		bl	HAL_Init
+  87:Src/main.c    **** 
+  88:Src/main.c    ****   /* USER CODE BEGIN Init */
+  89:Src/main.c    **** 
+  90:Src/main.c    ****   /* USER CODE END Init */
+  91:Src/main.c    **** 
+  92:Src/main.c    ****   /* Configure the system clock */
+  93:Src/main.c    ****   SystemClock_Config();
+ 131              		.loc 1 93 3
+ 132 000a FFF7FEFF 		bl	SystemClock_Config
+ 133              	.LBB2:
+  94:Src/main.c    **** 
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s 			page 5
+
+
+  95:Src/main.c    ****   /* USER CODE BEGIN SysInit */
+  96:Src/main.c    ****   __HAL_RCC_GPIOA_CLK_ENABLE();
+ 134              		.loc 1 96 3
+ 135 000e 0023     		movs	r3, #0
+ 136 0010 3B60     		str	r3, [r7]
+ 137 0012 184B     		ldr	r3, .L5
+ 138 0014 1B6B     		ldr	r3, [r3, #48]
+ 139 0016 174A     		ldr	r2, .L5
+ 140 0018 43F00103 		orr	r3, r3, #1
+ 141 001c 1363     		str	r3, [r2, #48]
+ 142 001e 154B     		ldr	r3, .L5
+ 143 0020 1B6B     		ldr	r3, [r3, #48]
+ 144 0022 03F00103 		and	r3, r3, #1
+ 145 0026 3B60     		str	r3, [r7]
+ 146 0028 3B68     		ldr	r3, [r7]
+ 147              	.LBE2:
+  97:Src/main.c    ****   /* USER CODE END SysInit */
+  98:Src/main.c    **** 
+  99:Src/main.c    ****   /* Initialize all configured peripherals */
+ 100:Src/main.c    ****   /* USER CODE BEGIN 2 */
+ 101:Src/main.c    ****   static ARM_DRIVER_USART *uart = &Driver_USART1;
+ 102:Src/main.c    **** 
+ 103:Src/main.c    **** 	initUSART(NULL, 9600, uart);
+ 148              		.loc 1 103 2
+ 149 002a 134B     		ldr	r3, .L5+4
+ 150 002c 1B68     		ldr	r3, [r3]
+ 151 002e 1A46     		mov	r2, r3
+ 152 0030 4FF41651 		mov	r1, #9600
+ 153 0034 0020     		movs	r0, #0
+ 154 0036 FFF7FEFF 		bl	initUSART
+ 104:Src/main.c    ****   const char message[] = "Hello World! I'm working!";
+ 155              		.loc 1 104 14
+ 156 003a 104B     		ldr	r3, .L5+8
+ 157 003c 3C1D     		adds	r4, r7, #4
+ 158 003e 1D46     		mov	r5, r3
+ 159 0040 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
+ 160 0042 0FC4     		stmia	r4!, {r0, r1, r2, r3}
+ 161 0044 95E80700 		ldm	r5, {r0, r1, r2}
+ 162 0048 03C4     		stmia	r4!, {r0, r1}
+ 163 004a 2280     		strh	r2, [r4]	@ movhi
+ 105:Src/main.c    ****   uart->Send(message, sizeof(message));
+ 164              		.loc 1 105 7
+ 165 004c 0A4B     		ldr	r3, .L5+4
+ 166 004e 1B68     		ldr	r3, [r3]
+ 167 0050 5B69     		ldr	r3, [r3, #20]
+ 168              		.loc 1 105 3
+ 169 0052 3A1D     		adds	r2, r7, #4
+ 170 0054 1A21     		movs	r1, #26
+ 171 0056 1046     		mov	r0, r2
+ 172 0058 9847     		blx	r3
+ 173              	.LVL5:
+ 106:Src/main.c    **** 
+ 107:Src/main.c    ****   while(uart->GetStatus().tx_busy){
+ 174              		.loc 1 107 8
+ 175 005a 00BF     		nop
+ 176              	.L3:
+ 177              		.loc 1 107 13 discriminator 1
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s 			page 6
+
+
+ 178 005c 064B     		ldr	r3, .L5+4
+ 179 005e 1B68     		ldr	r3, [r3]
+ 180 0060 DB6A     		ldr	r3, [r3, #44]
+ 181              		.loc 1 107 9 discriminator 1
+ 182 0062 9847     		blx	r3
+ 183              	.LVL6:
+ 184 0064 0346     		mov	r3, r0
+ 185 0066 DBB2     		uxtb	r3, r3
+ 186 0068 03F00103 		and	r3, r3, #1
+ 187 006c DBB2     		uxtb	r3, r3
+ 188              		.loc 1 107 8 discriminator 1
+ 189 006e 002B     		cmp	r3, #0
+ 190 0070 F4D1     		bne	.L3
+ 191              	.L4:
+ 108:Src/main.c    ****     ;
+ 109:Src/main.c    ****   }
+ 110:Src/main.c    ****   /* USER CODE END 2 */
+ 111:Src/main.c    **** 
+ 112:Src/main.c    ****   /* Infinite loop */
+ 113:Src/main.c    ****   /* USER CODE BEGIN WHILE */
+ 114:Src/main.c    ****   while (1)
+ 192              		.loc 1 114 9 discriminator 1
+ 193 0072 FEE7     		b	.L4
+ 194              	.L6:
+ 195              		.align	2
+ 196              	.L5:
+ 197 0074 00380240 		.word	1073887232
+ 198 0078 00000000 		.word	uart.7618
+ 199 007c 00000000 		.word	.LC0
+ 200              		.cfi_endproc
+ 201              	.LFE131:
+ 203              		.section	.text.SystemClock_Config,"ax",%progbits
+ 204              		.align	1
+ 205              		.global	SystemClock_Config
+ 206              		.syntax unified
+ 207              		.thumb
+ 208              		.thumb_func
+ 209              		.fpu fpv4-sp-d16
+ 211              	SystemClock_Config:
+ 212              	.LFB132:
+ 115:Src/main.c    ****   {
+ 116:Src/main.c    ****     /* USER CODE END WHILE */
+ 117:Src/main.c    **** 
+ 118:Src/main.c    ****     /* USER CODE BEGIN 3 */
+ 119:Src/main.c    ****   }
+ 120:Src/main.c    ****   /* USER CODE END 3 */
+ 121:Src/main.c    **** }
+ 122:Src/main.c    **** 
+ 123:Src/main.c    **** /**
+ 124:Src/main.c    ****   * @brief System Clock Configuration
+ 125:Src/main.c    ****   * @retval None
+ 126:Src/main.c    ****   */
+ 127:Src/main.c    **** void SystemClock_Config(void)
+ 128:Src/main.c    **** {
+ 213              		.loc 1 128 1
+ 214              		.cfi_startproc
+ 215              		@ args = 0, pretend = 0, frame = 80
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s 			page 7
+
+
+ 216              		@ frame_needed = 1, uses_anonymous_args = 0
+ 217 0000 80B5     		push	{r7, lr}
+ 218              	.LCFI8:
+ 219              		.cfi_def_cfa_offset 8
+ 220              		.cfi_offset 7, -8
+ 221              		.cfi_offset 14, -4
+ 222 0002 94B0     		sub	sp, sp, #80
+ 223              	.LCFI9:
+ 224              		.cfi_def_cfa_offset 88
+ 225 0004 00AF     		add	r7, sp, #0
+ 226              	.LCFI10:
+ 227              		.cfi_def_cfa_register 7
+ 129:Src/main.c    ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+ 228              		.loc 1 129 22
+ 229 0006 07F12003 		add	r3, r7, #32
+ 230 000a 3022     		movs	r2, #48
+ 231 000c 0021     		movs	r1, #0
+ 232 000e 1846     		mov	r0, r3
+ 233 0010 FFF7FEFF 		bl	memset
+ 130:Src/main.c    ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+ 234              		.loc 1 130 22
+ 235 0014 07F10C03 		add	r3, r7, #12
+ 236 0018 0022     		movs	r2, #0
+ 237 001a 1A60     		str	r2, [r3]
+ 238 001c 5A60     		str	r2, [r3, #4]
+ 239 001e 9A60     		str	r2, [r3, #8]
+ 240 0020 DA60     		str	r2, [r3, #12]
+ 241 0022 1A61     		str	r2, [r3, #16]
+ 242              	.LBB3:
+ 131:Src/main.c    **** 
+ 132:Src/main.c    ****   /** Configure the main internal regulator output voltage 
+ 133:Src/main.c    ****   */
+ 134:Src/main.c    ****   __HAL_RCC_PWR_CLK_ENABLE();
+ 243              		.loc 1 134 3
+ 244 0024 0023     		movs	r3, #0
+ 245 0026 BB60     		str	r3, [r7, #8]
+ 246 0028 224B     		ldr	r3, .L11
+ 247 002a 1B6C     		ldr	r3, [r3, #64]
+ 248 002c 214A     		ldr	r2, .L11
+ 249 002e 43F08053 		orr	r3, r3, #268435456
+ 250 0032 1364     		str	r3, [r2, #64]
+ 251 0034 1F4B     		ldr	r3, .L11
+ 252 0036 1B6C     		ldr	r3, [r3, #64]
+ 253 0038 03F08053 		and	r3, r3, #268435456
+ 254 003c BB60     		str	r3, [r7, #8]
+ 255 003e BB68     		ldr	r3, [r7, #8]
+ 256              	.LBE3:
+ 257              	.LBB4:
+ 135:Src/main.c    ****   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+ 258              		.loc 1 135 3
+ 259 0040 0023     		movs	r3, #0
+ 260 0042 7B60     		str	r3, [r7, #4]
+ 261 0044 1C4B     		ldr	r3, .L11+4
+ 262 0046 1B68     		ldr	r3, [r3]
+ 263 0048 1B4A     		ldr	r2, .L11+4
+ 264 004a 43F48043 		orr	r3, r3, #16384
+ 265 004e 1360     		str	r3, [r2]
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s 			page 8
+
+
+ 266 0050 194B     		ldr	r3, .L11+4
+ 267 0052 1B68     		ldr	r3, [r3]
+ 268 0054 03F48043 		and	r3, r3, #16384
+ 269 0058 7B60     		str	r3, [r7, #4]
+ 270 005a 7B68     		ldr	r3, [r7, #4]
+ 271              	.LBE4:
+ 136:Src/main.c    ****   /** Initializes the CPU, AHB and APB busses clocks 
+ 137:Src/main.c    ****   */
+ 138:Src/main.c    ****   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+ 272              		.loc 1 138 36
+ 273 005c 0223     		movs	r3, #2
+ 274 005e 3B62     		str	r3, [r7, #32]
+ 139:Src/main.c    ****   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+ 275              		.loc 1 139 30
+ 276 0060 0123     		movs	r3, #1
+ 277 0062 FB62     		str	r3, [r7, #44]
+ 140:Src/main.c    ****   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+ 278              		.loc 1 140 41
+ 279 0064 1023     		movs	r3, #16
+ 280 0066 3B63     		str	r3, [r7, #48]
+ 141:Src/main.c    ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+ 281              		.loc 1 141 34
+ 282 0068 0023     		movs	r3, #0
+ 283 006a BB63     		str	r3, [r7, #56]
+ 142:Src/main.c    ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+ 284              		.loc 1 142 7
+ 285 006c 07F12003 		add	r3, r7, #32
+ 286 0070 1846     		mov	r0, r3
+ 287 0072 FFF7FEFF 		bl	HAL_RCC_OscConfig
+ 288 0076 0346     		mov	r3, r0
+ 289              		.loc 1 142 6
+ 290 0078 002B     		cmp	r3, #0
+ 291 007a 01D0     		beq	.L8
+ 143:Src/main.c    ****   {
+ 144:Src/main.c    ****     Error_Handler();
+ 292              		.loc 1 144 5
+ 293 007c FFF7FEFF 		bl	Error_Handler
+ 294              	.L8:
+ 145:Src/main.c    ****   }
+ 146:Src/main.c    ****   /** Initializes the CPU, AHB and APB busses clocks 
+ 147:Src/main.c    ****   */
+ 148:Src/main.c    ****   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+ 295              		.loc 1 148 31
+ 296 0080 0F23     		movs	r3, #15
+ 297 0082 FB60     		str	r3, [r7, #12]
+ 149:Src/main.c    ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 150:Src/main.c    ****   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+ 298              		.loc 1 150 34
+ 299 0084 0023     		movs	r3, #0
+ 300 0086 3B61     		str	r3, [r7, #16]
+ 151:Src/main.c    ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 301              		.loc 1 151 35
+ 302 0088 0023     		movs	r3, #0
+ 303 008a 7B61     		str	r3, [r7, #20]
+ 152:Src/main.c    ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+ 304              		.loc 1 152 36
+ 305 008c 0023     		movs	r3, #0
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s 			page 9
+
+
+ 306 008e BB61     		str	r3, [r7, #24]
+ 153:Src/main.c    ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 307              		.loc 1 153 36
+ 308 0090 0023     		movs	r3, #0
+ 309 0092 FB61     		str	r3, [r7, #28]
+ 154:Src/main.c    **** 
+ 155:Src/main.c    ****   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+ 310              		.loc 1 155 7
+ 311 0094 07F10C03 		add	r3, r7, #12
+ 312 0098 0021     		movs	r1, #0
+ 313 009a 1846     		mov	r0, r3
+ 314 009c FFF7FEFF 		bl	HAL_RCC_ClockConfig
+ 315 00a0 0346     		mov	r3, r0
+ 316              		.loc 1 155 6
+ 317 00a2 002B     		cmp	r3, #0
+ 318 00a4 01D0     		beq	.L10
+ 156:Src/main.c    ****   {
+ 157:Src/main.c    ****     Error_Handler();
+ 319              		.loc 1 157 5
+ 320 00a6 FFF7FEFF 		bl	Error_Handler
+ 321              	.L10:
+ 158:Src/main.c    ****   }
+ 159:Src/main.c    **** }
+ 322              		.loc 1 159 1
+ 323 00aa 00BF     		nop
+ 324 00ac 5037     		adds	r7, r7, #80
+ 325              	.LCFI11:
+ 326              		.cfi_def_cfa_offset 8
+ 327 00ae BD46     		mov	sp, r7
+ 328              	.LCFI12:
+ 329              		.cfi_def_cfa_register 13
+ 330              		@ sp needed
+ 331 00b0 80BD     		pop	{r7, pc}
+ 332              	.L12:
+ 333 00b2 00BF     		.align	2
+ 334              	.L11:
+ 335 00b4 00380240 		.word	1073887232
+ 336 00b8 00700040 		.word	1073770496
+ 337              		.cfi_endproc
+ 338              	.LFE132:
+ 340              		.section	.text.Error_Handler,"ax",%progbits
+ 341              		.align	1
+ 342              		.global	Error_Handler
+ 343              		.syntax unified
+ 344              		.thumb
+ 345              		.thumb_func
+ 346              		.fpu fpv4-sp-d16
+ 348              	Error_Handler:
+ 349              	.LFB133:
+ 160:Src/main.c    **** 
+ 161:Src/main.c    **** /* USER CODE BEGIN 4 */
+ 162:Src/main.c    **** 
+ 163:Src/main.c    **** /* USER CODE END 4 */
+ 164:Src/main.c    **** 
+ 165:Src/main.c    **** /**
+ 166:Src/main.c    ****   * @brief  This function is executed in case of error occurrence.
+ 167:Src/main.c    ****   * @retval None
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s 			page 10
+
+
+ 168:Src/main.c    ****   */
+ 169:Src/main.c    **** void Error_Handler(void)
+ 170:Src/main.c    **** {
+ 350              		.loc 1 170 1
+ 351              		.cfi_startproc
+ 352              		@ args = 0, pretend = 0, frame = 0
+ 353              		@ frame_needed = 1, uses_anonymous_args = 0
+ 354              		@ link register save eliminated.
+ 355 0000 80B4     		push	{r7}
+ 356              	.LCFI13:
+ 357              		.cfi_def_cfa_offset 4
+ 358              		.cfi_offset 7, -4
+ 359 0002 00AF     		add	r7, sp, #0
+ 360              	.LCFI14:
+ 361              		.cfi_def_cfa_register 7
+ 171:Src/main.c    ****   /* USER CODE BEGIN Error_Handler_Debug */
+ 172:Src/main.c    ****   /* User can add his own implementation to report the HAL error return state */
+ 173:Src/main.c    **** 
+ 174:Src/main.c    ****   /* USER CODE END Error_Handler_Debug */
+ 175:Src/main.c    **** }
+ 362              		.loc 1 175 1
+ 363 0004 00BF     		nop
+ 364 0006 BD46     		mov	sp, r7
+ 365              	.LCFI15:
+ 366              		.cfi_def_cfa_register 13
+ 367              		@ sp needed
+ 368 0008 5DF8047B 		ldr	r7, [sp], #4
+ 369              	.LCFI16:
+ 370              		.cfi_restore 7
+ 371              		.cfi_def_cfa_offset 0
+ 372 000c 7047     		bx	lr
+ 373              		.cfi_endproc
+ 374              	.LFE133:
+ 376              		.section	.data.uart.7618,"aw"
+ 377              		.align	2
+ 380              	uart.7618:
+ 381 0000 00000000 		.word	Driver_USART1
+ 382              		.text
+ 383              	.Letext0:
+ 384              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\9 2019-q4-major\\arm-none-eabi\\include\
+ 385              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\9 2019-q4-major\\arm-none-eabi\\include\
+ 386              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
+ 387              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 388              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
+ 389              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h"
+ 390              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h"
+ 391              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 392              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 393              		.file 11 "Drivers/CMSIS/Driver/Include/Driver_Common.h"
+ 394              		.file 12 "Drivers/CMSIS/Driver/Include/Driver_USART.h"
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s:18     .text.initUSART:00000000 $t
+C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s:26     .text.initUSART:00000000 initUSART
+C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s:99     .rodata:00000000 $d
+C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s:103    .text.main:00000000 $t
+C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s:110    .text.main:00000000 main
+C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s:211    .text.SystemClock_Config:00000000 SystemClock_Config
+C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s:197    .text.main:00000074 $d
+C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s:380    .data.uart.7618:00000000 uart.7618
+C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s:204    .text.SystemClock_Config:00000000 $t
+C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s:348    .text.Error_Handler:00000000 Error_Handler
+C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s:335    .text.SystemClock_Config:000000b4 $d
+C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s:341    .text.Error_Handler:00000000 $t
+C:\Users\Robert\AppData\Local\Temp\ccCkhYVY.s:377    .data.uart.7618:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_Init
+memset
+HAL_RCC_OscConfig
+HAL_RCC_ClockConfig
+Driver_USART1
