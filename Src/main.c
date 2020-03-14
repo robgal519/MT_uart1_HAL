@@ -24,6 +24,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "Driver_USART.h"
+#include "stdio.h"
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -68,6 +70,44 @@ void initUSART(ARM_USART_SignalEvent_t f, unsigned int baudrate, ARM_DRIVER_USAR
 	uart->Control(ARM_USART_CONTROL_TX, 1);
 	uart->Control(ARM_USART_CONTROL_RX, 1);
 }
+
+void initGPIOA(){
+	static GPIO_InitTypeDef outputPins;
+	outputPins.Pin = GPIO_PIN_4;
+	outputPins.Mode = GPIO_MODE_OUTPUT_PP;
+	outputPins.Pull = GPIO_PULLDOWN;
+	outputPins.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	// outputPins.Alternate  not set
+
+	HAL_GPIO_Init(GPIOA,&outputPins);
+	
+}
+
+size_t testBaudrate(size_t baudrate, ARM_DRIVER_USART *uart){
+  static uint8_t dummy[500];
+  static size_t counter = 0;
+
+  initUSART(NULL, baudrate, uart);
+  counter = 0;
+  uart->Send(dummy, sizeof(dummy));
+  HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,GPIO_PIN_SET);
+  while(uart->GetStatus().tx_busy){
+    counter++;
+  }
+  HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,GPIO_PIN_RESET);
+  uart->Uninitialize();
+  return counter;
+}
+
+void printResult(size_t*results, size_t size, ARM_DRIVER_USART* uart ){
+    initUSART(NULL,9600,uart);
+  for(size_t d = 0; d< size; d++){
+    static char message[10];
+    sprintf(message, "%d|", results[d]);
+    uart->Send(message, strlen(message));
+    while(uart->GetStatus().tx_busy){;}
+  }
+}
 /* USER CODE END 0 */
 
 /**
@@ -94,19 +134,26 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  initGPIOA();
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   /* USER CODE BEGIN 2 */
   static ARM_DRIVER_USART *uart = &Driver_USART1;
+  static size_t baudrates[] = {
+    4800, 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600
+  };
+  #define TEST_COUNT (sizeof(baudrates)/sizeof(*baudrates))
+  #define RETRY 3
+  static size_t results [TEST_COUNT*RETRY] = {0};
 
-	initUSART(NULL, 9600, uart);
-  const char message[] = "Hello World! I'm working!";
-  uart->Send(message, sizeof(message));
-
-  while(uart->GetStatus().tx_busy){
-    ;
+  for(size_t test = 0; test < TEST_COUNT; test++){
+    for(size_t retry = 0; retry<RETRY; retry++){
+      results[test*RETRY+retry] = testBaudrate(baudrates[test],uart);
+    }
   }
+  printResult(results, TEST_COUNT*RETRY, uart);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
