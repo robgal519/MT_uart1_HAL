@@ -23,7 +23,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "Driver_USART.h"
+#define bool uint8_t
+#define false 0
+#define true 1
 #include "stdio.h"
 #include "string.h"
 /* USER CODE END Includes */
@@ -43,70 +45,150 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+UART_HandleTypeDef huart1;
+DMA_HandleTypeDef hdma_usart1_tx;
+DMA_HandleTypeDef hdma_usart1_rx;
 
 /* USER CODE BEGIN PV */
-extern ARM_DRIVER_USART Driver_USART1;
 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
+static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void initUSART(ARM_USART_SignalEvent_t f, unsigned int baudrate, ARM_DRIVER_USART *uart)
+
+void init_Hal_UART(UART_HandleTypeDef *huart, size_t baudrate)
 {
-	uart->Initialize(f);
-	uart->PowerControl(ARM_POWER_FULL);
-	uart->Control(ARM_USART_MODE_ASYNCHRONOUS |
-					  ARM_USART_DATA_BITS_8 |
-					  ARM_USART_PARITY_NONE |
-					  ARM_USART_STOP_BITS_1 |
-					  ARM_USART_FLOW_CONTROL_NONE,
-				  baudrate);
-	uart->Control(ARM_USART_CONTROL_TX, 1);
-	uart->Control(ARM_USART_CONTROL_RX, 1);
+  huart->Instance = USART1;
+  huart->Init.BaudRate = baudrate;
+  huart->Init.WordLength = UART_WORDLENGTH_8B;
+  huart->Init.StopBits = UART_STOPBITS_1;
+  huart->Init.Parity = UART_PARITY_NONE;
+  huart->Init.Mode = UART_MODE_TX_RX;
+  huart->Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart->Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(huart) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
+void initGPIOA()
+{
+  static GPIO_InitTypeDef outputPins;
+  outputPins.Pin = GPIO_PIN_4;
+  outputPins.Mode = GPIO_MODE_OUTPUT_PP;
+  outputPins.Pull = GPIO_PULLDOWN;
+  outputPins.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  // outputPins.Alternate  not set
+
+  HAL_GPIO_Init(GPIOA, &outputPins);
 }
 
-void initGPIOA(){
-	static GPIO_InitTypeDef outputPins;
-	outputPins.Pin = GPIO_PIN_4;
-	outputPins.Mode = GPIO_MODE_OUTPUT_PP;
-	outputPins.Pull = GPIO_PULLDOWN;
-	outputPins.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	// outputPins.Alternate  not set
-
-	HAL_GPIO_Init(GPIOA,&outputPins);
-	
+static uint8_t dummy[500];
+void randomizeData(uint8_t *buffor, size_t size)
+{
+  for (size_t i = 0; i < size; i++)
+  {
+    buffor[i] = rand() % ((uint8_t)(-1));
+  }
+}
+volatile bool UART1_TransferComplete = false;
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+{
+  if (huart == &huart1)
+    UART1_TransferComplete = true;
 }
 
-size_t testBaudrate(size_t baudrate, ARM_DRIVER_USART *uart){
-  static uint8_t dummy[500];
+size_t testBaudrateHAL(size_t baudrate, UART_HandleTypeDef *uart)
+{
   static size_t counter = 0;
 
-  initUSART(NULL, baudrate, uart);
+  init_Hal_UART(uart, baudrate);
   counter = 0;
-  uart->Send(dummy, sizeof(dummy));
-  HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,GPIO_PIN_SET);
-  while(uart->GetStatus().tx_busy){
-    counter++;
+  UART1_TransferComplete = false;
+  randomizeData(dummy, sizeof(dummy));
+  HAL_StatusTypeDef status = HAL_UART_Transmit_IT(uart, dummy, sizeof(dummy));
+  if (status != HAL_OK)
+  {
+    // Error !!!
   }
-  HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,GPIO_PIN_RESET);
-  uart->Uninitialize();
+  else
+  {
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+    while (!UART1_TransferComplete)
+    {
+      counter++;
+    }
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+  }
+  HAL_UART_DeInit(uart);
   return counter;
 }
 
-void printResult(size_t*results, size_t size, ARM_DRIVER_USART* uart ){
-    initUSART(NULL,9600,uart);
-  for(size_t d = 0; d< size; d++){
+size_t testBaudrate_DMA(size_t baudrate, UART_HandleTypeDef *uart)
+{
+  static size_t counter = 0;
+
+  init_Hal_UART(uart, baudrate);
+  counter = 0;
+  UART1_TransferComplete = false;
+  randomizeData(dummy, sizeof(dummy));
+  HAL_StatusTypeDef status = HAL_UART_Transmit_DMA(uart, dummy, sizeof(dummy));
+  if (status != HAL_OK)
+  {
+    // Error !!!
+  }
+  else
+  {
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+    while (!UART1_TransferComplete)
+    {
+      counter++;
+    }
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+  }
+  HAL_UART_DeInit(uart);
+  return counter;
+}
+
+void printResultHAL(size_t *results, size_t size, UART_HandleTypeDef *uart)
+{
+  init_Hal_UART(uart, 9600);
+  for (size_t d = 0; d < size; d++)
+  {
     static char message[10];
     sprintf(message, "%d|", results[d]);
-    uart->Send(message, strlen(message));
-    while(uart->GetStatus().tx_busy){;}
+    HAL_UART_Transmit(uart, (uint8_t *)message, strlen(message), 0xffff);
   }
+  HAL_UART_DeInit(uart);
+}
+
+static size_t baudrates[] = {
+    4800, 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600};
+#define TEST_COUNT (sizeof(baudrates) / sizeof(*baudrates))
+#define RETRY 3
+
+void TEST_HAL()
+{
+  static size_t results[TEST_COUNT * RETRY] = {0};
+
+  for (size_t test = 0; test < TEST_COUNT; test++)
+  {
+    for (size_t retry = 0; retry < RETRY; retry++)
+    {
+      //results[test * RETRY + retry] = testBaudrateHAL(baudrates[test], &huart1);
+      results[test*RETRY+retry] = testBaudrate_DMA(baudrates[test],&huart1);
+    }
+  }
+  printResultHAL(results, TEST_COUNT * RETRY, &huart1);
 }
 /* USER CODE END 0 */
 
@@ -138,22 +220,13 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_DMA_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  static ARM_DRIVER_USART *uart = &Driver_USART1;
-  static size_t baudrates[] = {
-    4800, 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600
-  };
-  #define TEST_COUNT (sizeof(baudrates)/sizeof(*baudrates))
-  #define RETRY 3
-  static size_t results [TEST_COUNT*RETRY] = {0};
+  HAL_UART_DeInit(&huart1);
 
-  for(size_t test = 0; test < TEST_COUNT; test++){
-    for(size_t retry = 0; retry<RETRY; retry++){
-      results[test*RETRY+retry] = testBaudrate(baudrates[test],uart);
-    }
-  }
-  printResult(results, TEST_COUNT*RETRY, uart);
-
+  TEST_HAL();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -192,8 +265,7 @@ void SystemClock_Config(void)
   }
   /** Initializes the CPU, AHB and APB busses clocks 
   */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
@@ -203,6 +275,68 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief USART1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 115200;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART1_Init 2 */
+
+  /* USER CODE END USART1_Init 2 */
+}
+
+/** 
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA2_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA2_Stream2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream2_IRQn);
+  /* DMA2_Stream7_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream7_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream7_IRQn);
+}
+
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_GPIO_Init(void)
+{
+
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOA_CLK_ENABLE();
 }
 
 /* USER CODE BEGIN 4 */
@@ -221,7 +355,7 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.
@@ -230,7 +364,7 @@ void Error_Handler(void)
   * @retval None
   */
 void assert_failed(uint8_t *file, uint32_t line)
-{ 
+{
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
      tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
   28:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****   
   29:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****   [..]   
   30:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****   All GPIO pins have weak internal pull-up and pull-down resistors, which can be 
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 2
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 2
 
 
   31:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****   activated or not.
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
   85:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****         (PC14 and PC15, respectively) when the LSE oscillator is off. The LSE has 
   86:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****         priority over the GPIO function.
   87:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****   
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 3
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 3
 
 
   88:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****     (#) The HSE oscillator pins OSC_IN/OSC_OUT can be used as 
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  142:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c **** /* Exported functions --------------------------------------------------------*/
  143:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c **** /** @defgroup GPIO_Exported_Functions GPIO Exported Functions
  144:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****   * @{
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 4
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 4
 
 
  145:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****   */
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  176:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****   uint32_t temp = 0x00U;
   52              		.loc 1 176 12
   53 0012 0023     		movs	r3, #0
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 5
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 5
 
 
   54 0014 BB61     		str	r3, [r7, #24]
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
   88 0046 022B     		cmp	r3, #2
   89 0048 07D0     		beq	.L4
  197:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****          (GPIO_Init->Mode == GPIO_MODE_OUTPUT_OD) || (GPIO_Init->Mode == GPIO_MODE_AF_OD))
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 6
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 6
 
 
   90              		.loc 1 197 20 discriminator 2
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  206:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c **** 
  207:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****         /* Configure the IO Output Type */
  208:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****         temp = GPIOx->OTYPER;
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 7
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 7
 
 
  135              		.loc 1 208 14
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  181 00d0 1340     		ands	r3, r3, r2
  182 00d2 BB61     		str	r3, [r7, #24]
  217:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****       temp |= ((GPIO_Init->Pull) << (position * 2U));
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 8
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 8
 
 
  183              		.loc 1 217 26
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  227 0114 02FA03F3 		lsl	r3, r2, r3
  228              		.loc 1 227 17
  229 0118 DB43     		mvns	r3, r3
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 9
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 9
 
 
  230              		.loc 1 227 14
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  276              		.loc 1 235 33
  277 0160 03F00302 		and	r2, r3, #3
  278              		.loc 1 235 59
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 10
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 10
 
 
  279 0164 FB69     		ldr	r3, [r7, #28]
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  246:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****         temp &= ~(0x0FU << (4U * (position & 0x03U)));
  323              		.loc 1 246 44
  324 01b0 FB69     		ldr	r3, [r7, #28]
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 11
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 11
 
 
  325 01b2 03F00303 		and	r3, r3, #3
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  378 0206 0723     		movs	r3, #7
  379 0208 0EE0     		b	.L23
  380              	.L15:
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 12
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 12
 
 
  381              		.loc 1 247 29 discriminator 16
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  251:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****         temp = EXTI->IMR;
  432              		.loc 1 251 20 discriminator 32
  433 0246 3B4B     		ldr	r3, .L29+40
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 13
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 13
 
 
  434              		.loc 1 251 14 discriminator 32
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  478              		.loc 1 261 29
  479 0284 03F40033 		and	r3, r3, #131072
  480              		.loc 1 261 11
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 14
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 14
 
 
  481 0288 002B     		cmp	r3, #0
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  522              		.loc 1 274 20
  523 02c0 BB69     		ldr	r3, [r7, #24]
  524 02c2 9360     		str	r3, [r2, #8]
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 15
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 15
 
 
  275:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c **** 
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  286:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c **** }
  566              		.loc 1 286 1
  567 02fc 00BF     		nop
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 16
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 16
 
 
  568 02fe 00BF     		nop
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  613 0000 80B4     		push	{r7}
  614              	.LCFI6:
  615              		.cfi_def_cfa_offset 4
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 17
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 17
 
 
  616              		.cfi_offset 7, -4
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  653 0032 9A42     		cmp	r2, r3
  654 0034 40F0BD80 		bne	.L33
  315:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****     {
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 18
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 18
 
 
  316:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****       /*------------------------- EXTI Mode Configuration --------------------*/
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  705 0088 0DD0     		beq	.L39
  706              		.loc 1 319 29 discriminator 11
  707 008a 7B68     		ldr	r3, [r7, #4]
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 19
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 19
 
 
  708 008c 574A     		ldr	r2, .L52+28
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  320:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****       {
  321:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****         /* Clear EXTI line configuration */
  322:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****         EXTI->IMR &= ~((uint32_t)iocurrent);
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 20
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 20
 
 
  762              		.loc 1 322 19
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  808 010c 0F22     		movs	r2, #15
  809 010e 02FA03F3 		lsl	r3, r2, r3
  810 0112 BB60     		str	r3, [r7, #8]
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 21
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 21
 
 
  331:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****         SYSCFG->EXTICR[position >> 2U] &= ~tmp;
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  856 015e 02FA03F3 		lsl	r3, r2, r3
  857              		.loc 1 339 37
  858 0162 DB43     		mvns	r3, r3
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 22
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 22
 
 
  859              		.loc 1 339 34
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  904 01aa DB43     		mvns	r3, r3
  905              		.loc 1 348 22
  906 01ac 1A40     		ands	r2, r2, r3
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 23
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 23
 
 
  907 01ae 7B68     		ldr	r3, [r7, #4]
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  958              	HAL_GPIO_ReadPin:
  959              	.LFB132:
  352:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c **** 
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 24
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 24
 
 
  353:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c **** /**
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  982 0010 7B88     		ldrh	r3, [r7, #2]
  983 0012 1340     		ands	r3, r3, r2
  984              		.loc 1 384 5
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 25
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 25
 
 
  985 0014 002B     		cmp	r3, #0
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  401:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****   *
  402:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****   * @param  GPIOx where x can be (A..K) to select the GPIO peripheral for STM32F429X device or
  403:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****   *                      x can be (A..I) to select the GPIO peripheral for STM32F40XX and STM32F427
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 26
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 26
 
 
  404:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****   * @param  GPIO_Pin specifies the port bit to be written.
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  424:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****   }
  1056              		.loc 1 424 19
  1057 001e 7B88     		ldrh	r3, [r7, #2]
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 27
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 27
 
 
  424:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****   }
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  1102              		.cfi_def_cfa_offset 16
  1103 0004 00AF     		add	r7, sp, #0
  1104              	.LCFI26:
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 28
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 28
 
 
  1105              		.cfi_def_cfa_register 7
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  1146              		.cfi_restore 7
  1147              		.cfi_def_cfa_offset 0
  1148 0034 7047     		bx	lr
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 29
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 29
 
 
  1149              		.cfi_endproc
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  1184 0012 7A88     		ldrh	r2, [r7, #2]
  1185 0014 FB68     		ldr	r3, [r7, #12]
  1186 0016 1343     		orrs	r3, r3, r2
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 30
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 30
 
 
  1187 0018 FB60     		str	r3, [r7, #12]
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  1222 0046 1437     		adds	r7, r7, #20
  1223              	.LCFI33:
  1224              		.cfi_def_cfa_offset 4
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 31
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 31
 
 
  1225 0048 BD46     		mov	sp, r7
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  1271 0014 06D0     		beq	.L71
  499:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****   {
  500:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c ****     __HAL_GPIO_EXTI_CLEAR_IT(GPIO_Pin);
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 32
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 32
 
 
  1272              		.loc 1 500 5
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  1317 0002 83B0     		sub	sp, sp, #12
  1318              	.LCFI42:
  1319              		.cfi_def_cfa_offset 16
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 33
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 33
 
 
  1320 0004 00AF     		add	r7, sp, #0
@@ -1959,29 +1959,29 @@ ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 1
  1350              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
  1351              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
  1352              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
-ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s 			page 34
+ARM GAS  C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s 			page 34
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f4xx_hal_gpio.c
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:18     .text.HAL_GPIO_Init:00000000 $t
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:26     .text.HAL_GPIO_Init:00000000 HAL_GPIO_Init
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:584    .text.HAL_GPIO_Init:0000030c $d
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:599    .text.HAL_GPIO_DeInit:00000000 $t
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:606    .text.HAL_GPIO_DeInit:00000000 HAL_GPIO_DeInit
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:937    .text.HAL_GPIO_DeInit:000001d0 $d
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:951    .text.HAL_GPIO_ReadPin:00000000 $t
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:958    .text.HAL_GPIO_ReadPin:00000000 HAL_GPIO_ReadPin
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:1016   .text.HAL_GPIO_WritePin:00000000 $t
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:1023   .text.HAL_GPIO_WritePin:00000000 HAL_GPIO_WritePin
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:1082   .text.HAL_GPIO_TogglePin:00000000 $t
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:1089   .text.HAL_GPIO_TogglePin:00000000 HAL_GPIO_TogglePin
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:1153   .text.HAL_GPIO_LockPin:00000000 $t
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:1160   .text.HAL_GPIO_LockPin:00000000 HAL_GPIO_LockPin
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:1238   .text.HAL_GPIO_EXTI_IRQHandler:00000000 $t
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:1245   .text.HAL_GPIO_EXTI_IRQHandler:00000000 HAL_GPIO_EXTI_IRQHandler
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:1306   .text.HAL_GPIO_EXTI_Callback:00000000 HAL_GPIO_EXTI_Callback
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:1294   .text.HAL_GPIO_EXTI_IRQHandler:0000002c $d
-C:\Users\Robert\AppData\Local\Temp\ccEtOiNe.s:1299   .text.HAL_GPIO_EXTI_Callback:00000000 $t
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:18     .text.HAL_GPIO_Init:00000000 $t
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:26     .text.HAL_GPIO_Init:00000000 HAL_GPIO_Init
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:584    .text.HAL_GPIO_Init:0000030c $d
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:599    .text.HAL_GPIO_DeInit:00000000 $t
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:606    .text.HAL_GPIO_DeInit:00000000 HAL_GPIO_DeInit
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:937    .text.HAL_GPIO_DeInit:000001d0 $d
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:951    .text.HAL_GPIO_ReadPin:00000000 $t
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:958    .text.HAL_GPIO_ReadPin:00000000 HAL_GPIO_ReadPin
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:1016   .text.HAL_GPIO_WritePin:00000000 $t
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:1023   .text.HAL_GPIO_WritePin:00000000 HAL_GPIO_WritePin
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:1082   .text.HAL_GPIO_TogglePin:00000000 $t
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:1089   .text.HAL_GPIO_TogglePin:00000000 HAL_GPIO_TogglePin
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:1153   .text.HAL_GPIO_LockPin:00000000 $t
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:1160   .text.HAL_GPIO_LockPin:00000000 HAL_GPIO_LockPin
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:1238   .text.HAL_GPIO_EXTI_IRQHandler:00000000 $t
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:1245   .text.HAL_GPIO_EXTI_IRQHandler:00000000 HAL_GPIO_EXTI_IRQHandler
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:1306   .text.HAL_GPIO_EXTI_Callback:00000000 HAL_GPIO_EXTI_Callback
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:1294   .text.HAL_GPIO_EXTI_IRQHandler:0000002c $d
+C:\Users\Robert\AppData\Local\Temp\ccaAa33R.s:1299   .text.HAL_GPIO_EXTI_Callback:00000000 $t
 
 NO UNDEFINED SYMBOLS
