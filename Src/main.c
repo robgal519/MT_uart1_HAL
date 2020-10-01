@@ -21,11 +21,13 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
+#include "calibration.h"
+#include "usart_test.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#define bool uint8_t
-#define false 0
-#define true 1
+#include <stdbool.h>
+
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
@@ -65,104 +67,22 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+volatile bool UART_TransferComplete = false;
 
 void log_message(char *ch) {
   while (*ch)
     ITM_SendChar(*ch++);
 }
 
-void init_Hal_UART(UART_HandleTypeDef *huart, size_t baudrate) {
-  huart->Instance = USART1;
-  huart->Init.BaudRate = baudrate;
-  huart->Init.WordLength = UART_WORDLENGTH_8B;
-  huart->Init.StopBits = UART_STOPBITS_1;
-  huart->Init.Parity = UART_PARITY_NONE;
-  huart->Init.Mode = UART_MODE_TX_RX;
-  huart->Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart->Init.OverSampling = UART_OVERSAMPLING_8;
-  if (HAL_UART_Init(huart) != HAL_OK) {
-    Error_Handler();
-  }
-}
-void initGPIOA() {
-  static GPIO_InitTypeDef outputPins;
-  outputPins.Pin = GPIO_PIN_4;
-  outputPins.Mode = GPIO_MODE_OUTPUT_PP;
-  outputPins.Pull = GPIO_PULLDOWN;
-  outputPins.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  // outputPins.Alternate  not set
-
-  HAL_GPIO_Init(GPIOA, &outputPins);
-}
-
-static uint8_t dummy[500];
-void randomizeData(uint8_t *buffor, size_t size) {
+void randomize_payload(uint8_t *buffor, size_t size) {
   for (size_t i = 0; i < size; i++) {
     buffor[i] = rand() % ((uint8_t)(-1));
   }
 }
-volatile bool UART_TransferComplete = false;
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
-  if (huart == &huart1)
-    UART_TransferComplete = true;
-}
-
-void TIM2_IRQHandler(void) {
-  // clear interrupt status
-  if (TIM2->DIER & 0x01) {
-    if (TIM2->SR & 0x01) {
-      TIM2->SR &= (uint32_t) ~(1U << 0);
-    }
-  }
-  TIM2->CR1 &= (~((uint16_t)TIM_CR1_CEN));
-  UART_TransferComplete = true;
-  NVIC_DisableIRQ(TIM2_IRQn);
-}
-
-void setup_timer1(UART_HandleTypeDef *uart, size_t baudrate) {
-  (void)uart;
-  (void)baudrate;
-  RCC->APB1ENR |= (1 << 0);
-
-  // Timer clock runs at ABP1 * 2
-  //   since ABP1 is set to /4 of fCLK
-  //   thus 168M/4 * 2 = 84Mhz
-  // set prescaler to 83999
-  //   it will increment counter every prescalar cycles
-  // fCK_PSC / (PSC[15:0] + 1)
-  // 84 Mhz / 8399 + 1 = 10 khz timer clock speed
-  TIM2->PSC = 0;
-
-  // Set the auto-reload value to 10000
-  //   which should give 1 second timer interrupts
-  TIM2->ARR = 84000000;
-
-  // Update Interrupt Enable
-  TIM2->DIER |= (1 << 0);
-
-  NVIC_SetPriority(TIM2_IRQn, 2); // Priority level 2
-  // enable TIM2 IRQ from NVIC
-  NVIC_EnableIRQ(TIM2_IRQn);
-}
-
-HAL_StatusTypeDef start_timer(UART_HandleTypeDef *uart, uint8_t *data,
-                              uint16_t size) {
-  (void)uart;
-  (void)data;
-  (void)size;
-
-  TIM2->CR1 |= (1 << 0);
-  return HAL_OK;
-}
-
-HAL_StatusTypeDef dummy_deinit(UART_HandleTypeDef *huart) {
-  (void)huart;
-  return HAL_OK;
-}
 
 struct test_ctx {
   UART_HandleTypeDef *uart;
-  void (*configure)(UART_HandleTypeDef *uart, size_t baudrate);
+  void (*configure)(UART_HandleTypeDef *uart, uint32_t baudrate);
   HAL_StatusTypeDef (*transfer)(UART_HandleTypeDef *uart, uint8_t *data,
                                 uint16_t size);
   HAL_StatusTypeDef (*deinit)(UART_HandleTypeDef *huart);
@@ -186,10 +106,11 @@ struct test_ctx calibrate_ctx = {
     .uart = NULL,
     .configure = setup_timer1,
     .transfer = start_timer,
-    .deinit = dummy_deinit,
+    .deinit = deinit_timer,
 };
 
 bool test_performance(struct test_ctx *ctx, uint32_t baud, uint32_t *counter) {
+  static uint8_t data[500];
   uint32_t cnt = 0;
 
   if (ctx == NULL)
@@ -200,8 +121,8 @@ bool test_performance(struct test_ctx *ctx, uint32_t baud, uint32_t *counter) {
   ctx->configure(ctx->uart, baud);
 
   UART_TransferComplete = false;
-  randomizeData(dummy, sizeof(dummy));
-  if (ctx->transfer(ctx->uart, dummy, sizeof(dummy)) != HAL_OK)
+  randomize_payload(data, sizeof(data));
+  if (ctx->transfer(ctx->uart, data, sizeof(data)) != HAL_OK)
     return false;
 
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
@@ -218,16 +139,17 @@ bool test_performance(struct test_ctx *ctx, uint32_t baud, uint32_t *counter) {
   return true;
 }
 
-static size_t baudrates[] = {4800,    9600,    19200,   38400,  57600,
-                             115200,  230400,  460800,  921600, 1312500,
-                             2625000, 5250000, 10500000};
+static uint32_t baudrates[] = {4800,    9600,    19200,   38400,  57600,
+                               115200,  230400,  460800,  921600, 1312500,
+                               2625000, 5250000, 10500000};
 #define TEST_COUNT (sizeof(baudrates) / sizeof(*baudrates))
 #define RETRY 5
 
-void TEST_HAL() {
-  char log_buff[128];
-  log_message("test_dma\n");
+void TEST_HAL(struct test_ctx *ctx) {
+  if (ctx == NULL)
+    return;
 
+  char log_buff[128];
   uint32_t calibration = 0;
   test_performance(&calibrate_ctx, 0, &calibration);
   sprintf(log_buff, "Calibartion: %d\n", calibration);
@@ -236,7 +158,7 @@ void TEST_HAL() {
   for (size_t test = 0; test < TEST_COUNT; test++) {
     for (size_t retry = 0; retry < RETRY; retry++) {
       uint32_t counter = 0;
-      if (test_performance(&test_dma_ctx, baudrates[test], &counter)) {
+      if (test_performance(ctx, baudrates[test], &counter)) {
         sprintf(log_buff, "%d,%d\n", baudrates[test], counter);
         log_message(log_buff);
       }
@@ -245,6 +167,16 @@ void TEST_HAL() {
 }
 /* USER CODE END 0 */
 
+void initGPIOA() {
+  static GPIO_InitTypeDef outputPins;
+  outputPins.Pin = GPIO_PIN_4;
+  outputPins.Mode = GPIO_MODE_OUTPUT_PP;
+  outputPins.Pull = GPIO_PULLDOWN;
+  outputPins.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  // outputPins.Alternate  not set
+
+  HAL_GPIO_Init(GPIOA, &outputPins);
+}
 /**
  * @brief  The application entry point.
  * @retval int
@@ -281,7 +213,10 @@ int main(void) {
   // HAL_UART_DeInit(&huart2);
   HAL_UART_DeInit(&huart1);
 
-  TEST_HAL();
+  log_message("test_int\n");
+  TEST_HAL(&test_it_ctx);
+  log_message("test_dma\n");
+  TEST_HAL(&test_dma_ctx);
   /* USER CODE END 2 */
 
   /* Infinite loop */

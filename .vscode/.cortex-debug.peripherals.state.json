@@ -1,1 +1,1 @@
-[{"node":"USART1","expanded":true,"format":0},{"node":"USART1.DR","expanded":true,"format":0},{"node":"USART1.BRR","expanded":true,"format":0},{"node":"USART1.CR1","expanded":true,"format":0}]
+[{"node":"TIM2","expanded":true,"format":0},{"node":"TIM2.ARR","expanded":true,"format":0},{"node":"USART1","expanded":true,"format":0},{"node":"USART1.DR","expanded":true,"format":0},{"node":"USART1.BRR","expanded":true,"format":0},{"node":"USART1.CR1","expanded":true,"format":0}]

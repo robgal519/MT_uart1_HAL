@@ -26,6 +26,34 @@
             "svdFile": "STM32F407.svd",
             "preLaunchTask": "build"
         },
+        {
+			"name": "openocd_debug_dma",
+			"type": "cortex-debug",
+			"request": "launch",
+			"servertype": "openocd",
+			"cwd": "${workspaceFolder}",
+			"executable": "build/testProjectCube.elf",
+			"svdFile": "STM32F407.svd",
+			"configFiles":
+			[
+				"c:/Users/Robert/.vscode/extensions/buzzyelectronics.stm-helper-1.2.9/OpenOCD/scripts/interface/stlink.cfg",
+				"c:/Users/Robert/.vscode/extensions/buzzyelectronics.stm-helper-1.2.9/OpenOCD/scripts/target/stm32f4x.cfg"
+			],
+			"swoConfig": {
+				"cpuFrequency": 168000000,
+				"enabled": true,
+				"swoFrequency": 2000000,
+				"source": "probe",
+				"decoders": [
+					{
+						"port": 0,
+						"type": "console",
+						"label": "SWO output",
+						"encoding":"ascii"
+					}
+				]
+			}
+		}
 
     ]
 }
