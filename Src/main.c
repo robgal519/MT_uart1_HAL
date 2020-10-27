@@ -122,11 +122,11 @@ bool test_performance(struct test_ctx *ctx, uint32_t baud, uint32_t *counter) {
   if (ctx->transfer(ctx->internal, data, sizeof(data)) != HAL_OK)
     return false;
 
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+  GPIOA->ODR &= (uint32_t) ~(1 << 4);
   while (!UART_TransferComplete) {
     cnt++;
   }
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+  GPIOA->ODR &= (uint32_t) ~(1 << 4);
 
   if (ctx->deinit == NULL)
     return false;
