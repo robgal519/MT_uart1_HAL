@@ -119,7 +119,7 @@ bool test_performance(struct test_ctx *ctx, uint32_t baud, uint32_t *counter) {
 
   UART_TransferComplete = false;
   randomize_payload(data, sizeof(data));
-  if (ctx->transfer(ctx->internal, data, sizeof(data)) != HAL_OK)
+  if (ctx->transfer(ctx->internal, data, sizeof(data)) == false)
     return false;
 
   GPIOA->ODR &= (uint32_t) ~(1 << 4);
