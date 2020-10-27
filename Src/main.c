@@ -81,30 +81,27 @@ void randomize_payload(uint8_t *buffor, size_t size) {
 }
 
 struct test_ctx {
-  UART_HandleTypeDef *uart;
-  void (*configure)(UART_HandleTypeDef *uart, uint32_t baudrate);
-  HAL_StatusTypeDef (*transfer)(UART_HandleTypeDef *uart, uint8_t *data,
+  void * internal;
+  void (*configure)(void **internal, uint32_t baudrate);
+  bool (*transfer)(void *internal, uint8_t *data,
                                 uint16_t size);
-  HAL_StatusTypeDef (*deinit)(UART_HandleTypeDef *huart);
+  bool (*deinit)(void *internal);
 };
 
 struct test_ctx test_dma_ctx = {
-    .uart = &huart1,
     .configure = init_Hal_UART,
-    .transfer = HAL_UART_Transmit_DMA,
-    .deinit = HAL_UART_DeInit,
+    .transfer = transfer_DMA_Hal_UART,
+    .deinit = deinit_Hal_UART,
 };
 
 struct test_ctx test_it_ctx = {
-    .uart = &huart1,
     .configure = init_Hal_UART,
-    .transfer = HAL_UART_Transmit_IT,
-    .deinit = HAL_UART_DeInit,
+    .transfer = transfer_IT_Hal_UART,
+    .deinit = deinit_Hal_UART,
 };
 
 struct test_ctx calibrate_ctx = {
-    .uart = NULL,
-    .configure = setup_timer1,
+    .configure = setup_timer,
     .transfer = start_timer,
     .deinit = deinit_timer,
 };
@@ -118,11 +115,11 @@ bool test_performance(struct test_ctx *ctx, uint32_t baud, uint32_t *counter) {
   if (ctx->configure == NULL)
     return false;
 
-  ctx->configure(ctx->uart, baud);
+  ctx->configure(&ctx->internal, baud);
 
   UART_TransferComplete = false;
   randomize_payload(data, sizeof(data));
-  if (ctx->transfer(ctx->uart, data, sizeof(data)) != HAL_OK)
+  if (ctx->transfer(ctx->internal, data, sizeof(data)) != HAL_OK)
     return false;
 
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
@@ -133,7 +130,7 @@ bool test_performance(struct test_ctx *ctx, uint32_t baud, uint32_t *counter) {
 
   if (ctx->deinit == NULL)
     return false;
-  ctx->deinit(ctx->uart);
+  ctx->deinit(ctx->internal);
 
   *counter = cnt;
   return true;

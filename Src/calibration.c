@@ -20,21 +20,18 @@ void TIM2_IRQHandler(void) {
   NVIC_DisableIRQ(TIM2_IRQn);
 }
 
-void setup_timer1(UART_HandleTypeDef *uart, uint32_t baudrate) {
-  (void)uart;
+void setup_timer(void **internal, uint32_t baudrate) {
+  (void)internal;
   (void)baudrate;
   RCC->APB1ENR |= (1 << 0);
 
   // Timer clock runs at ABP1 * 2
   //   since ABP1 is set to /4 of fCLK
   //   thus 168M/4 * 2 = 84Mhz
-  // set prescaler to 83999
-  //   it will increment counter every prescalar cycles
-  // fCK_PSC / (PSC[15:0] + 1)
-  // 84 Mhz / 8399 + 1 = 10 khz timer clock speed
+  // set prescaler to 0
   TIM2->PSC = 0;
 
-  // Set the auto-reload value to 10000
+  // Set the auto-reload value to 84000000
   //   which should give 1 second timer interrupts
   TIM2->ARR = 84000000;
 
@@ -46,19 +43,18 @@ void setup_timer1(UART_HandleTypeDef *uart, uint32_t baudrate) {
   NVIC_EnableIRQ(TIM2_IRQn);
 }
 
-HAL_StatusTypeDef start_timer(UART_HandleTypeDef *uart, uint8_t *data,
-                              uint16_t size) {
-  (void)uart;
+bool start_timer(void *internal, uint8_t *data, uint16_t size) {
+  (void)internal;
   (void)data;
   (void)size;
 
   TIM2->CR1 |= (1 << 0);
-  return HAL_OK;
+  return true;
 }
 
-HAL_StatusTypeDef deinit_timer(UART_HandleTypeDef *huart) {
-  (void)huart;
+bool deinit_timer(void *internal) {
+  (void)internal;
   TIM2->CR1 &= (~((uint16_t)TIM_CR1_CEN));
   NVIC_DisableIRQ(TIM2_IRQn);
-  return HAL_OK;
+  return true;
 }
